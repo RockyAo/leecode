@@ -24,17 +24,74 @@ import UIKit
 //
 //空间复杂度：O(1)。
 
+//func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+//
+//    for i in 0 ..< nums.count{
+//        for j in i + 1 ..< nums.count {
+//            if nums[j] == target - nums[i] {
+//                return [i, j]
+//            }
+//        }
+//    }
+//
+//    return []
+//}
+//
+
+///hash
 func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
- 
-    for i in 0 ..< nums.count{
-        for j in i + 1 ..< nums.count {
-            if nums[j] == target - nums[i] {
-                return [i, j]
+
+    var hashMap: [Int: Int] = [:]
+
+    for (index, number) in nums.enumerated() {
+        let remainder = target - number
+
+        if hashMap.keys.contains(remainder) {
+            if let remainderIndex = hashMap[remainder], remainderIndex != index {
+                return [remainderIndex, index]
             }
         }
+
+        hashMap[number] = index
     }
-    
+
+
     return []
 }
 
+///二分查找
+///慢，空间少
+//func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+//
+//    ///从小到大排序
+//    let numbers = nums.sorted()
+//
+//    ///左指针
+//    var left = 0
+//
+//    ///右指针
+//    var right = numbers.count - 1
+//
+//    var result: [Int] = []
+//
+//    while left < right {
+//        let leftNum = numbers[left]
+//        let rightNum = numbers[right]
+//
+//        let sum = leftNum + rightNum
+//        if sum == target {
+//            result = [nums.firstIndex(of: leftNum)!, nums.lastIndex(of: rightNum)!]
+//            break;
+//        } else if sum > target {
+//            right -= 1
+//        } else if sum < target {
+//            left += 1
+//        }
+//    }
+//    return result
+//}
+
+
 let result = twoSum([2, 7, 11, 15], 9)
+
+
